@@ -8,6 +8,6 @@ namespace SaleOrganizer.Persistence
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        DbSet<Cloth> Clothes { get; set; }
+        public DbSet<Cloth> Clothes { get; set; }
     }
 }

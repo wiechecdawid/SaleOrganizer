@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SaleOrganizer.Persistence;
+using SaleOrganizer.Persistence.DbInitializer;
 
 namespace SaleOrganizer.API
 {
@@ -28,6 +29,8 @@ namespace SaleOrganizer.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IDbInitializer, DbInitializer>();
+
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(Configuration.GetConnectionString("Default"));
@@ -37,6 +40,14 @@ namespace SaleOrganizer.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+                initializer.Initialize().Wait();
+                initializer.Seed().Wait();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
