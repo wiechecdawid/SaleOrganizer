@@ -44,5 +44,12 @@ namespace SaleOrganizer.API.Controllers
         {
             return await _mediator.Send(new Delete.Command { Id = id });
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
+        {
+            command.Id = id;
+            return await _mediator.Send(command);
+        }
     }
 }
