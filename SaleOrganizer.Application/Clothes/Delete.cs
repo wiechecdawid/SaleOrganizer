@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SaleOrganizer.Application.Errors;
 using SaleOrganizer.Persistence;
 using System;
 using System.Collections.Generic;
@@ -28,14 +29,14 @@ namespace SaleOrganizer.Application.Clothes
             {
                 var cloth = await _context.Clothes.FindAsync(request.Id);
                 if(cloth == null)
-                    throw new Exception("Cannot find data");
+                    throw new RestException(System.Net.HttpStatusCode.NotFound, new { cloth = "Cannot find resource..." });
 
                 _context.Remove(cloth);
 
                 if (await _context.SaveChangesAsync() > 0)
                     return Unit.Value;
 
-                throw new Exception("Problem saving changes");
+                throw new Exception("Problem with saving data...");
             }
         }
     }

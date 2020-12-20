@@ -67,6 +67,65 @@ namespace SaleOrganizer.Persistence.DbInitializer
                         await context.Clothes.AddRangeAsync(clothes);
                     }
 
+                    if(!context.Offerings.Any())
+                    {
+                        var offerings = new List<Offering>
+                        {
+                            new Offering
+                            {
+                                Id = 1,
+                                ClothId = 1,
+                                ReferenceLink = "abc.com",
+                                TradeType = TradeType.allegro,
+                                DeliveryType = DeliveryType.ruchPackage,
+                                Price = 35.00M,
+                                OfferingDate = DateTime.Today.AddHours(5)
+                    },
+                            new Offering
+                            {
+                                Id = 2,
+                                ClothId = 2,
+                                ReferenceLink = "abc.com",
+                                TradeType = TradeType.vinted,
+                                DeliveryType = DeliveryType.inpost,
+                                Price = 50.00M,
+                                OfferingDate = DateTime.Today
+                            }
+                        };
+
+                        await context.Offerings.AddRangeAsync(offerings);
+                    }
+
+                    if (!context.Purchases.Any())
+                    {
+                        var purchases = new List<Purchase>
+                        {
+                            new Purchase
+                            {
+                                Id = 1,
+                                ClothId = 3,
+                                ReferenceLink = "abc.com",
+                                TradeType = TradeType.allegro,
+                                DeliveryType = DeliveryType.ruchPackage,
+                                Price = 25.00M,
+                                PurchaseDate = DateTime.Today,
+                                PaymentDate = DateTime.Today
+                            },
+                            new Purchase
+                            {
+                                Id = 2,
+                                ClothId = 4,
+                                ReferenceLink = "abc.com",
+                                TradeType = TradeType.vinted,
+                                DeliveryType = DeliveryType.inpost,
+                                Price = 40.00M,
+                                PurchaseDate = new DateTime(2020, 12, 22)
+                            }
+                        };
+
+                        await context.Purchases.AddRangeAsync(purchases);
+                    }
+
                     await context.SaveChangesAsync();
                 }
             }

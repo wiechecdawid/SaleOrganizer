@@ -9,5 +9,7 @@ namespace SaleOrganizer.Persistence
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Cloth> Clothes { get; set; }
+        public DbSet<Offering> Offerings { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
     }
 }

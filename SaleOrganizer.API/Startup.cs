@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SaleOrganizer.API.Middleware;
 using SaleOrganizer.Application.Clothes;
 using SaleOrganizer.Persistence;
 using SaleOrganizer.Persistence.DbInitializer;
@@ -56,10 +57,11 @@ namespace SaleOrganizer.API
                 initializer.Seed().Wait();
             }
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
 
             //app.UseHttpsRedirection();
 

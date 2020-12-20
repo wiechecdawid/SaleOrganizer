@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using SaleOrganizer.Application.Errors;
 using SaleOrganizer.Domain;
 using SaleOrganizer.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +35,10 @@ namespace SaleOrganizer.Application.Clothes
                 var cloth = await _context.Clothes.FindAsync(request.Id);
 
                 if (cloth == null)
-                    throw new Exception("Could not find cloth");
+                    throw new RestException(HttpStatusCode.NotFound, new
+                    {
+                        cloth = "Resource not found..."
+                    });
 
                 cloth.Name = request.Name ?? cloth.Name;
                 cloth.Description = request.Description ?? cloth.Description;
