@@ -49,7 +49,10 @@ namespace SaleOrganizer.Application.Clothes
 
                 _context.Clothes.Add(cloth);
 
-                await _context.SaveChangesAsync();
+                var success = await _context.SaveChangesAsync() > 0;
+
+                if (!success)
+                    throw new Exception("Problem saving changes...");
 
                 return Unit.Value;
             }
