@@ -28,22 +28,16 @@ namespace SaleOrganizer.API.Controllers
         public async Task<ActionResult<Offering>> Get(int id) => await _mediator.Send(new GetById.Query { Id = id });
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(Create.Command command)
-        {
-            return await _mediator.Send(command);
-        }
+        public async Task<ActionResult<Unit>> Create(Create.Command command) => await _mediator.Send(command);
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
         {
             command.Id = id;
             return await _mediator.Send(command);
         }
 
-        [HttpDelete]
-        public async Task<Unit> Delete(int id)
-        {
-            return await _mediator.Send(new Delete.Command { Id = id });
-        }
+        [HttpDelete("{id}")]
+        public async Task<Unit> Delete(int id) => await _mediator.Send(new Delete.Command { Id = id });
     }
 }
