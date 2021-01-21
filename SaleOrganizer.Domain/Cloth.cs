@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace SaleOrganizer.Domain
 {
@@ -8,6 +8,7 @@ namespace SaleOrganizer.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public ClothStatus Status { get; set; }
+        public ICollection<Trade> Trades { get; set; }
     }
 
     public enum ClothStatus
