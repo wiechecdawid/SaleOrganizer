@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SaleOrganizer.Application.DTOs;
 using SaleOrganizer.Application.Purchases;
 using SaleOrganizer.Domain;
 //using SaleOrganizer.Application.Purchases;
@@ -23,10 +24,10 @@ namespace SaleOrganizer.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Purchase>>> Get() => await _mediator.Send(new Get.Query());
+        public async Task<ActionResult<List<PurchaseDto>>> Get() => await _mediator.Send(new Get.Query());
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Purchase>> Get(int id) => await _mediator.Send(new GetById.Query { Id = id });
+        public async Task<ActionResult<PurchaseDto>> Get(int id) => await _mediator.Send(new GetById.Query { Id = id });
 
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command) => await _mediator.Send(command);

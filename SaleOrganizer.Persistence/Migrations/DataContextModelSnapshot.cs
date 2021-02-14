@@ -36,7 +36,7 @@ namespace SaleOrganizer.Persistence.Migrations
                     b.ToTable("Clothes");
                 });
 
-            modelBuilder.Entity("SaleOrganizer.Domain.Trade", b =>
+            modelBuilder.Entity("SaleOrganizer.Domain.Offering", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,11 +48,53 @@ namespace SaleOrganizer.Persistence.Migrations
                     b.Property<int>("DeliveryType")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
+                    b.Property<DateTime>("OfferingDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("OrderedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ReferenceLink")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("SendDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TradeType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClothId");
+
+                    b.ToTable("Offerings");
+                });
+
+            modelBuilder.Entity("SaleOrganizer.Domain.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ClothId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("DeliveryDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DeliveryType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ReferenceLink")
@@ -65,47 +107,22 @@ namespace SaleOrganizer.Persistence.Migrations
 
                     b.HasIndex("ClothId");
 
-                    b.ToTable("Trade");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Trade");
+                    b.ToTable("Purchases");
                 });
 
             modelBuilder.Entity("SaleOrganizer.Domain.Offering", b =>
                 {
-                    b.HasBaseType("SaleOrganizer.Domain.Trade");
-
-                    b.Property<DateTime>("OfferingDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("OrderedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("SendDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Offering");
+                    b.HasOne("SaleOrganizer.Domain.Cloth", "Cloth")
+                        .WithMany("Offerings")
+                        .HasForeignKey("ClothId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SaleOrganizer.Domain.Purchase", b =>
                 {
-                    b.HasBaseType("SaleOrganizer.Domain.Trade");
-
-                    b.Property<DateTime?>("DeliveryDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("PaymentDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Purchase");
-                });
-
-            modelBuilder.Entity("SaleOrganizer.Domain.Trade", b =>
-                {
                     b.HasOne("SaleOrganizer.Domain.Cloth", "Cloth")
-                        .WithMany("Trades")
+                        .WithMany("Purchases")
                         .HasForeignKey("ClothId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

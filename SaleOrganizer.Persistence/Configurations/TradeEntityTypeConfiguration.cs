@@ -7,13 +7,17 @@ using System.Text;
 
 namespace SaleOrganizer.Persistence.Configurations
 {
-    public class TradeEntityTypeConfiguration : IEntityTypeConfiguration<Trade>
+    public class TradeEntityTypeConfiguration : IEntityTypeConfiguration<Cloth>
     {
-        public void Configure(EntityTypeBuilder<Trade> builder)
+        public void Configure(EntityTypeBuilder<Cloth> builder)
         {
             builder
-                .HasOne(t => t.Cloth)
-                .WithMany(c => c.Trades)
+                .HasMany(c => c.Offerings)
+                .WithOne(t => t.Cloth)
+                .HasForeignKey(t => t.ClothId);
+            builder
+                .HasMany(c => c.Purchases)
+                .WithOne(t => t.Cloth)
                 .HasForeignKey(t => t.ClothId);
         }
     }

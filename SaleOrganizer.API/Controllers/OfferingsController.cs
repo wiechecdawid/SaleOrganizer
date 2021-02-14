@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SaleOrganizer.Application.DTOs;
 
 namespace SaleOrganizer.API.Controllers
 {
@@ -22,10 +23,10 @@ namespace SaleOrganizer.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Offering>>> Get() => await _mediator.Send(new Get.Query());
+        public async Task<ActionResult<List<OfferingDto>>> Get() => await _mediator.Send(new Get.Query());
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Offering>> Get(int id) => await _mediator.Send(new GetById.Query { Id = id });
+        public async Task<ActionResult<OfferingDto>> Get(int id) => await _mediator.Send(new GetById.Query { Id = id });
 
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command) => await _mediator.Send(command);

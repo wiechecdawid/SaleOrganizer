@@ -17,7 +17,7 @@ namespace SaleOrganizer.Persistence
         {
             base.OnModelCreating(builder);
 
-            new TradeEntityTypeConfiguration().Configure(builder.Entity<Trade>());
+            new TradeEntityTypeConfiguration().Configure(builder.Entity<Cloth>());
         }
     }
 }

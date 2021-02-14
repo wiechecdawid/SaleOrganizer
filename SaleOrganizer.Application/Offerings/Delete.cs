@@ -34,6 +34,8 @@ namespace SaleOrganizer.Application.Offerings
                         offering = "Resource not found"
                     });
 
+                _context.Remove(offering);
+
                 if(await _context.SaveChangesAsync() > 0)
                     return Unit.Value;
 

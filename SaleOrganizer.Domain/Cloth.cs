@@ -8,7 +8,8 @@ namespace SaleOrganizer.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public ClothStatus Status { get; set; }
-        public ICollection<Trade> Trades { get; set; }
+        public ICollection<Offering> Offerings { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
     }
 
     public enum ClothStatus

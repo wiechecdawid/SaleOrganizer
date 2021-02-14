@@ -40,6 +40,8 @@ namespace SaleOrganizer.API
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddMediatR(typeof(Get.Handler).Assembly);
 
+            services.AddAutoMapper(typeof(Get.Handler));
+
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(Configuration.GetConnectionString("Default"));
