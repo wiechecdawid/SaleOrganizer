@@ -51,19 +51,19 @@ namespace SaleOrganizer.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            using (var scope = scopeFactory.CreateScope())
-            {
-                var initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-                initializer.Initialize().Wait();
-                initializer.Seed().Wait();
-            }
-
             app.UseMiddleware<ErrorHandlingMiddleware>();
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
+
+            if (env.IsDevelopment())
+            {
+                var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+                using (var scope = scopeFactory.CreateScope())
+                {
+                    var initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+                    initializer.Initialize().Wait();
+                    initializer.Seed().Wait();
+                }
+                //app.UseDeveloperExceptionPage();
+            }
 
             //app.UseHttpsRedirection();
 

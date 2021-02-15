@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using SaleOrganizer.Application.Errors;
 using SaleOrganizer.Domain;
 using SaleOrganizer.Persistence;
@@ -21,9 +22,18 @@ namespace SaleOrganizer.Application.Purchases
             public decimal Price { get; set; }
             public TradeType TradeType { get; set; }
             public DeliveryType DeliveryType { get; set; }
-            public DateTime PurchaseDate { get; set; }
+            public DateTime? PurchaseDate { get; set; }
             public DateTime? PaymentDate { get; set; }
             public DateTime? DeliveryDate { get; set; }
+        }
+
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(o => o.Price).GreaterThanOrEqualTo(0);
+                RuleFor(o => o.ReferenceLink).NotEmpty();
+            }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -52,7 +62,7 @@ namespace SaleOrganizer.Application.Purchases
                     Price = request.Price,
                     TradeType = request.TradeType,
                     DeliveryType = request.DeliveryType,
-                    PurchaseDate = request.PurchaseDate,
+                    PurchaseDate = request.PurchaseDate ?? DateTime.Now,
                     PaymentDate = request.PaymentDate,
                     DeliveryDate = request.DeliveryDate
                 };
