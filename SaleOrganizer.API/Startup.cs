@@ -46,6 +46,14 @@ namespace SaleOrganizer.API
             {
                 options.UseSqlite(Configuration.GetConnectionString("Default"));
             });
+
+            services.AddCors(options =>
+           {
+               options.AddPolicy("LocalPolicy", policy =>
+               {
+                   policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+               });
+           });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +76,8 @@ namespace SaleOrganizer.API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("LocalPolicy");
 
             app.UseAuthorization();
 
