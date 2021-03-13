@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import { Header } from './Header/Header';
 
 function App() {
   const [clothes, setClothes] = useState([]);
@@ -15,15 +15,14 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <ul>
+      <Header />
+      <ul>
           {clothes.map((cloth: any) => (
             <li key = {cloth.id}>
               {cloth.name}
             </li>
           ))}  
         </ul>
-      </header>
     </div>
   );
 }

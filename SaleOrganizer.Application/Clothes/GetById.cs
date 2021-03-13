@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using SaleOrganizer.Application.DTOs;
 using SaleOrganizer.Application.Errors;
 using SaleOrganizer.Domain;
 using SaleOrganizer.Persistence;
@@ -13,20 +15,22 @@ namespace SaleOrganizer.Application.Clothes
 {
     public class GetById
     {
-        public class Query : IRequest<Cloth>
+        public class Query : IRequest<ClothDto>
         {
             public int Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Cloth>
+        public class Handler : IRequestHandler<Query, ClothDto>
         {
             private DataContext _context;
+            private readonly IMapper _mapper;
 
-            public Handler(DataContext context)
+            public Handler(DataContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
-            public async Task<Cloth> Handle(Query request, CancellationToken token)
+            public async Task<ClothDto> Handle(Query request, CancellationToken token)
             {
                 var cloth = await _context.Clothes.FindAsync(request.Id);
 
@@ -36,7 +40,9 @@ namespace SaleOrganizer.Application.Clothes
                         cloth = "Resource Not Found..."
                     });
 
-                return cloth;
+                var clothDto = _mapper.Map<Cloth, ClothDto>(cloth);
+
+                return clothDto;
             }
         }
     }

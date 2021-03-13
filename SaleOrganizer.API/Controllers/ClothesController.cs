@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SaleOrganizer.Application.Clothes;
+using SaleOrganizer.Application.DTOs;
 using SaleOrganizer.Domain;
 using SaleOrganizer.Persistence;
 
@@ -22,13 +23,13 @@ namespace SaleOrganizer.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<List<Cloth>>> Get()
+        public async Task<ActionResult<List<ClothDto>>> Get()
         {
             return await _mediator.Send(new Get.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cloth>> Get(int id)
+        public async Task<ActionResult<ClothDto>> Get(int id)
         {
             return await _mediator.Send(new GetById.Query { Id = id });
         }
