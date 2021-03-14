@@ -29,7 +29,7 @@ namespace SaleOrganizer.Application.Purchases
 
             public async Task<List<PurchaseDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var purchases = await _context.Purchases.ToListAsync();
+                var purchases = await _context.Purchases.Include(p => p.Cloth).ToListAsync();
 
                 var purchaseDtos = _mapper.Map<List<Purchase>, List<PurchaseDto>>(purchases);
 
