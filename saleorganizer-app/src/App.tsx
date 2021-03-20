@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <HomeDashboard clothes={ clothes } offerings={ offerings } purchases={ purchases } />
+      <HomeDashboard clothes={ clothes } offerings={ offerings } purchases={ purchases } cloth={ clothes[0] } offering={ offerings[0] } purchase={ purchases[0] } />
       
     </div>
   );
