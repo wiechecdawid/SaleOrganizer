@@ -1,4 +1,4 @@
-import Offering from "../../Interfaces/Offering";
+import Offering from "../../interfaces/offering";
 
 interface Props {
     offerings: Offering[];

@@ -1,4 +1,4 @@
-import Cloth from '../../Interfaces/Cloth'
+import Cloth from '../../interfaces/cloth'
 
 interface Props {
     cloth: Cloth

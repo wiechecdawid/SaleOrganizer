@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useReducer } from 'react';
 import './App.css';
 import axios from 'axios';
-import Cloth from './Interfaces/Cloth';
-import Offering from './Interfaces/Offering';
-import Purchase from './Interfaces/Purchase';
-import { Header } from './Header/Header';
-import { HomeDashboard } from './HomeDashboard/HomeDashboard'
+import Cloth from './interfaces/cloth';
+import Offering from './interfaces/offering';
+import Purchase from './interfaces/purchase';
+import { Header } from './Components/Header/Header';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { MainPage } from './Components/MainPage/MainPage'
+import { ClothList } from './Components/ClothList/ClothList';
 
 function App() {
   const [clothes, setClothes] = useState<Cloth[]>([]);
   const [offerings, setOfferings] = useState<Offering[]>([])
   const [purchases, setPurchases] = useState<Purchase[]>([])
 
-  useEffect(() => {
+  useEffect( () => {
     axios.get<Cloth[]>('http://localhost:5000/api/clothes').then(response => {
       console.log(response);
       setClothes(response.data);
@@ -28,11 +30,26 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <Header />
-      <HomeDashboard clothes={ clothes } offerings={ offerings } purchases={ purchases } cloth={ clothes[0] } offering={ offerings[0] } purchase={ purchases[0] } />
-      
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+
+        <Switch>
+          <Route path="/" exact={ true } >
+            <MainPage>
+              {
+                clothes &&
+                <ClothList clothes = { clothes } />
+              }
+            </MainPage>
+          </Route>
+
+          <Route path="/*">
+            <p>Not Found</p>
+          </Route>
+        </Switch>     
+      </div>
+    </BrowserRouter>    
   );
 }
 

@@ -1,4 +1,4 @@
-import Purchase from '../../Interfaces/Purchase';
+import Purchase from '../../interfaces/purchase';
 
 interface Props {
     purchase: Purchase

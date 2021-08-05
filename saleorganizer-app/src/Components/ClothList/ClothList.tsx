@@ -1,11 +1,11 @@
-import Cloth from "../../Interfaces/Cloth";
+import Cloth from "../../interfaces/cloth";
 
 interface Props {
     clothes: Cloth[];
 }
 
 export const ClothList = ({clothes}: Props) => (
-    <div className="HomeDashBoard">
+    <div>
         <ul>
             {clothes.map((cloth: any) => (
             <li key = {cloth.id}>

@@ -1,4 +1,4 @@
-import Cloth from './Cloth'
+import Cloth from './cloth'
 
 export default interface Offering {
     id: number,
