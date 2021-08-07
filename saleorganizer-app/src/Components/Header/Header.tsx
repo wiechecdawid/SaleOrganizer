@@ -1,5 +1,5 @@
-// import React from 'react'; Since react 17 no longer needed
-import UserIcon from '../../ClothLogo/ClothLogo'
+import UserIcon from '../../ClothLogo/ClothLogo';
+import styled from 'styled-components';
 
 export const Header = () => (
     <div className="Header">
