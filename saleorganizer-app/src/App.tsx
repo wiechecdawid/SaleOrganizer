@@ -8,6 +8,8 @@ import { Header } from './Components/Header/Header';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { MainPage } from './Components/MainPage/MainPage'
 import { ClothList } from './Components/ClothList/ClothList';
+import { OfferingList } from './Components/OfferingList/OfferingList';
+import { PurchaseList } from './Components/PurchaseList/PurchaseList';
 
 function App() {
   const [clothes, setClothes] = useState<Cloth[]>([]);
@@ -37,6 +39,14 @@ function App() {
         <Switch>
           <Route path="/" exact={ true } >
             <MainPage>
+              {
+                offerings &&
+                <OfferingList offerings = { offerings } />
+              }
+              {
+                purchases &&
+                <PurchaseList purchases = { purchases } />
+              }
               {
                 clothes &&
                 <ClothList clothes = { clothes } />
