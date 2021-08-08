@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { StyledLink } from "../common/StyledLink/StyledLink";
 import Cloth from "../../interfaces/cloth";
 
 interface Props {
@@ -11,7 +11,7 @@ export const ClothList = ({clothes}: Props) => (
         <ul>
             {clothes.map((cloth: any) => (
             <li key = {cloth.id}>
-                <Link to={`/clothes/${ cloth.id }`}>{cloth.name}</Link>
+                <StyledLink to={`/clothes/${ cloth.id }`}>{cloth.name}</StyledLink>
             </li>
             ))}  
         </ul>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { StyledLink } from "../common/StyledLink/StyledLink";
 import Offering from "../../interfaces/offering";
 
 interface Props {
@@ -11,7 +11,7 @@ export const OfferingList = ({offerings}: Props) => (
         <ul>
             {offerings.map( (offering: any) => (
             <li key = {offering.id}>
-                <Link to={`/offerings/${ offering.id }`}>{offering.cloth.name}: {offering.price}zł</Link>
+                <StyledLink to={`/offerings/${ offering.id }`}>{offering.cloth.name}: {offering.price}zł</StyledLink>
             </li>
             ) )}  
         </ul>

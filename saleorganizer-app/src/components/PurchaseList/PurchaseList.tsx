@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import Purchase from "../../interfaces/purchase";
+import { StyledLink } from "../common/StyledLink/StyledLink"
 
 interface Props {
     purchases: Purchase[];
@@ -11,7 +11,7 @@ export const PurchaseList = ( {purchases}: Props) => (
         <ul>
             {purchases.map((purchase: Purchase) => (
             <li key = {purchase.id}>
-                <Link to={`/purchases/${purchase.id}`}>{ purchase.cloth.name }: { purchase.price }zł</Link>
+                <StyledLink to={`/purchases/${purchase.id}`}>{ purchase.cloth.name }: { purchase.price }zł</StyledLink>
             </li>
             ))}
         </ul>
