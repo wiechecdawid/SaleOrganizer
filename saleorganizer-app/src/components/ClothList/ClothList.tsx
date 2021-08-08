@@ -5,7 +5,8 @@ interface Props {
 }
 
 export const ClothList = ({clothes}: Props) => (
-    <div>
+    <>
+        <p>Moje ubranka:</p>
         <ul>
             {clothes.map((cloth: any) => (
             <li key = {cloth.id}>
@@ -13,5 +14,5 @@ export const ClothList = ({clothes}: Props) => (
             </li>
             ))}  
         </ul>
-    </div>
+    </>
 )

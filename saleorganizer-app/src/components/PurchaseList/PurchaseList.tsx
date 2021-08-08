@@ -5,7 +5,8 @@ interface Props {
 }
 
 export const PurchaseList = ({purchases}: Props) => (
-    <div className="HomeDashBoard">
+    <div>
+        <p>Kupowane: </p>
         <ul>
             {purchases.map((purchase: any) => (
             <li key = {purchase.id}>
