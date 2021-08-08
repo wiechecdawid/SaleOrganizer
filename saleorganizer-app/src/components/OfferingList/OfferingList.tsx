@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Offering from "../../interfaces/offering";
-import { SuccessButton } from "../common/buttons/SuccessButton";
 
 interface Props {
     offerings: Offering[];

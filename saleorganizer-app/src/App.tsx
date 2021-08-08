@@ -6,6 +6,8 @@ import { OfferingList } from './components/OfferingList/OfferingList';
 import { PurchaseList } from './components/PurchaseList/PurchaseList';
 import { OfferingDetails } from './components/OfferingDetails/OfferingDetails';
 import { PurchaseDetails } from './components/PurchaseDetails/PurchaseDetails';
+import { ClothList } from './components/ClothList/ClothList';
+import { ClothDetails } from './components/ClothDetails/ClothDetails';
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
                  
           <Route exact path="/purchases" component={ PurchaseList } />
           <Route path="/purchases/:id" component={ PurchaseDetails } />
+
+          <Route exact path="/clothes" component={ ClothList } />
+          <Route path="/clothes/:id" component={ ClothDetails } />
 
           <Route path="/*">
             <p>Not Found</p>
