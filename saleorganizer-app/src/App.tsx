@@ -8,31 +8,35 @@ import { OfferingDetails } from './components/OfferingDetails/OfferingDetails';
 import { PurchaseDetails } from './components/PurchaseDetails/PurchaseDetails';
 import { ClothList } from './components/ClothList/ClothList';
 import { ClothDetails } from './components/ClothDetails/ClothDetails';
+import { Provider } from 'react-redux';
+import store from './store/store'
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Header />
+    <Provider store={store}>
+      <BrowserRouter>
+        <div className="App">
+          <Header />
 
-        <Switch>
-          <Route path="/" exact={ true } component={ MainPage } />
-          
-          <Route exact path="/offerings" component={ OfferingList } />
-          <Route path="/offerings/:id" component={ OfferingDetails } />
-                 
-          <Route exact path="/purchases" component={ PurchaseList } />
-          <Route path="/purchases/:id" component={ PurchaseDetails } />
+          <Switch>
+            <Route path="/" exact={ true } component={ MainPage } />
+            
+            <Route exact path="/offerings" component={ OfferingList } />
+            <Route path="/offerings/:id" component={ OfferingDetails } />
+                  
+            <Route exact path="/purchases" component={ PurchaseList } />
+            <Route path="/purchases/:id" component={ PurchaseDetails } />
 
-          <Route exact path="/clothes" component={ ClothList } />
-          <Route path="/clothes/:id" component={ ClothDetails } />
+            <Route exact path="/clothes" component={ ClothList } />
+            <Route path="/clothes/:id" component={ ClothDetails } />
 
-          <Route path="/*">
-            <p>Not Found</p>
-          </Route>
-        </Switch>     
-      </div>
-    </BrowserRouter>    
+            <Route path="/*">
+              <p>Not Found</p>
+            </Route>
+          </Switch>     
+        </div>
+      </BrowserRouter> 
+    </Provider>       
   );
 }
 
