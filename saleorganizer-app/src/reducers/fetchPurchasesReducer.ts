@@ -26,5 +26,6 @@ export const fetchPurchasesReducer = (state = initialClothesState, action: any) 
                 ...state,
                 status: 'failed'
             }
+        default: return state
     }
 }

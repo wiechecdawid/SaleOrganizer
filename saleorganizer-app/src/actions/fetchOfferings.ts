@@ -1,6 +1,5 @@
 import { fetchRequest, fetchSuccess, fetchFailure } from "./fetchActions";
 import axios from "axios";
-import Offering from "../interfaces/offering";
 
 const fetchOfferings = () => {
     return (dispatch: any) => {

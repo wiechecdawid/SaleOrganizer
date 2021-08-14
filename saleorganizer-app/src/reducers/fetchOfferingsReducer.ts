@@ -26,5 +26,6 @@ export const fetchOfferingsReducer = (state = initialClothesState, action: any) 
                 ...state,
                 status: 'failed'
             }
+        default: return state
     }
 }

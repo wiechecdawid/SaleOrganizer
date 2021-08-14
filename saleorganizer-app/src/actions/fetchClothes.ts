@@ -2,7 +2,7 @@ import { fetchRequest, fetchSuccess, fetchFailure } from "./fetchActions";
 import axios from "axios";
 
 const fetchClothes = () => {
-    return (dispatch: any) => {
+    return async (dispatch: any) => {
         dispatch(fetchRequest)
         axios.get('http://localhost:5000/api/clothes')
             .then(response => {

@@ -29,5 +29,6 @@ export const fetchClothesReducer = (state = initialClothesState, action: Action)
                 data: [],
                 error: action.payload
             }
+        default: return state
     }
 }
