@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import Cloth from '../../interfaces/cloth';
 import Offering from '../../interfaces/offering';
-import Purchase from '../../interfaces/purchase'
-import { ClothList } from '../ClothList/ClothList';
+import Purchase from '../../interfaces/purchase';
+import ClothList from '../ClothList/ClothList';
 import { OfferingList } from '../OfferingList/OfferingList';
 import { PurchaseList } from '../PurchaseList/PurchaseList';
 
@@ -27,10 +27,6 @@ export const MainPage = () => {
     const [purchases, setPurchases] = useState<Purchase[]>([])
   
     useEffect( () => {
-        axios.get<Cloth[]>('http://localhost:5000/api/clothes').then(response => {
-        console.log(response);
-        setClothes(response.data);
-        })
         axios.get<Offering[]>('http://localhost:5000/api/offerings').then(response => {
         console.log(response)
         setOfferings(response.data)
@@ -51,10 +47,7 @@ export const MainPage = () => {
                 purchases &&
                 <PurchaseList purchases = { purchases } />
             }
-            {
-                clothes &&
-                <ClothList clothes = { clothes } />
-            }
+                <ClothList />
         </Wrapper>
     )
 }

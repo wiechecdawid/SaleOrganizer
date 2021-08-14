@@ -6,7 +6,7 @@ import { OfferingList } from './components/OfferingList/OfferingList';
 import { PurchaseList } from './components/PurchaseList/PurchaseList';
 import { OfferingDetails } from './components/OfferingDetails/OfferingDetails';
 import { PurchaseDetails } from './components/PurchaseDetails/PurchaseDetails';
-import { ClothList } from './components/ClothList/ClothList';
+import ClothList from './components/ClothList/ClothList';
 import { ClothDetails } from './components/ClothDetails/ClothDetails';
 
 function App() {
