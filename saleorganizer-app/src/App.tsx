@@ -2,8 +2,8 @@ import './App.css';
 import { Header } from './components/Header/Header';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { MainPage } from './components/MainPage/MainPage'
-import { OfferingList } from './components/OfferingList/OfferingList';
-import { PurchaseList } from './components/PurchaseList/PurchaseList';
+import OfferingList from './components/OfferingList/OfferingList';
+import PurchaseList from './components/PurchaseList/PurchaseList';
 import { OfferingDetails } from './components/OfferingDetails/OfferingDetails';
 import { PurchaseDetails } from './components/PurchaseDetails/PurchaseDetails';
 import ClothList from './components/ClothList/ClothList';
