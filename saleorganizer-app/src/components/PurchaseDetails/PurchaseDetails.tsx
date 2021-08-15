@@ -1,12 +1,19 @@
 import Purchase from '../../interfaces/purchase';
+import { useParams } from 'react-router-dom'
 
 interface Props {
     purchase: Purchase
 }
 
-export const PurchaseDetails = ({ purchase }: Props) => (
+type Params = {
+    id: string
+}
+
+export const PurchaseDetails = ({ purchase }: Props) => {
+    const { id } = useParams<Params>()
+
+    return (
     <div className="offeringDetails">
-        <h1>{purchase.cloth.name}</h1>
-        <h5>{`${purchase.purchaseDate} - ${purchase.tradeType}`}</h5>
+        <h1>{ id }</h1>
     </div>
-)
+)}

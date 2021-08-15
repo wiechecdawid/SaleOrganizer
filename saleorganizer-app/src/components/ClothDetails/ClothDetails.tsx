@@ -1,13 +1,19 @@
 import Cloth from '../../interfaces/cloth'
+import { useParams } from 'react-router-dom'
 
 interface Props {
     cloth: Cloth
 }
 
-export const ClothDetails = ({ cloth }: Props) => (
+type Params = {
+    id: string
+}
+
+export const ClothDetails = ({ cloth }: Props) => {
+    const { id } = useParams<Params>();
+
+    return (
     <>
-        <h1> { cloth.name } </h1>
-        <h5> { cloth.status } </h5>
-        <p> { cloth.description } </p>
+        <h1> { id } </h1>
     </>
-)
+)}
