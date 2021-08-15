@@ -17,7 +17,7 @@ const PurchaseList = ( { purchases, getPurchases }: Props) => {
     
     return (
     <div>
-        <p>Kupowane: </p>
+        <StyledLink to="/purchases"><p>Kupowane: </p></StyledLink>
         <ul>
             {purchases &&
                 purchases.map((purchase: Purchase) => (

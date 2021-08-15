@@ -1,7 +1,6 @@
 import { StyledLink } from "../common/StyledLink/StyledLink";
 import { useEffect } from "react";
 import Cloth from "../../interfaces/cloth";
-import { Dispatch } from "redux"
 import { connect } from "react-redux";
 import { getClothes } from "../../actions/clothesActions";
 import { AppState } from "../../interfaces/states";
@@ -18,7 +17,7 @@ const ClothList = ({ clothes, getClothes }: Props) => {
     
     return (
     <>
-        <p>Moje ubranka:</p>
+        <StyledLink to="/clothes"><p>Moje ubranka:</p></StyledLink>
         <ul>
             {clothes && 
                 clothes.map((cloth: any) => (

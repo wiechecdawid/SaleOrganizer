@@ -17,7 +17,7 @@ const OfferingList = ({ offerings, getOfferings }: Props) => {
 
     return(
     <>
-        <p>Sprzedawane: </p>
+        <StyledLink to="/offerings"><p>Sprzedawane: </p></StyledLink>
         <ul>
             {offerings && 
                 offerings.map( (offering: any) => (
