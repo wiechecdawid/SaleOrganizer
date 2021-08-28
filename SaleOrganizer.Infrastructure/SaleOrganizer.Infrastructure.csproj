@@ -9,4 +9,8 @@
     <PackageReference Include="CloudinaryDotNet" Version="1.15.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SaleOrganizer.Application\SaleOrganizer.Application.csproj" />
+  </ItemGroup>
+
 </Project>
