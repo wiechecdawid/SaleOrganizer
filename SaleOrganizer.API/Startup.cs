@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SaleOrganizer.API.Middleware;
 using SaleOrganizer.Application.Clothes;
+using SaleOrganizer.Infrastructure;
 using SaleOrganizer.Persistence;
 using SaleOrganizer.Persistence.DbInitializer;
 
@@ -39,7 +40,7 @@ namespace SaleOrganizer.API
 
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddMediatR(typeof(Get.Handler).Assembly);
-
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
             services.AddAutoMapper(typeof(Get.Handler));
 
             services.AddDbContext<DataContext>(options =>
