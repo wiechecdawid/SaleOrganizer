@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using SaleOrganizer.API.Middleware;
 using SaleOrganizer.Application.Clothes;
 using SaleOrganizer.Application.Interfaces;
+using SaleOrganizer.Application.Mappings;
 using SaleOrganizer.Infrastructure.Photos;
 using SaleOrganizer.Persistence;
 using SaleOrganizer.Persistence.DbInitializer;
@@ -43,7 +44,7 @@ namespace SaleOrganizer.API
             services.AddScoped<IPhotoAccessor, PhotoAccessor>();
             services.AddMediatR(typeof(Get.Handler).Assembly);
             services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
-            services.AddAutoMapper(typeof(Get.Handler));
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             services.AddDbContext<DataContext>(options =>
             {
