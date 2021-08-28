@@ -15,7 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SaleOrganizer.API.Middleware;
 using SaleOrganizer.Application.Clothes;
-using SaleOrganizer.Infrastructure;
+using SaleOrganizer.Infrastructure.Photos;
 using SaleOrganizer.Persistence;
 using SaleOrganizer.Persistence.DbInitializer;
 

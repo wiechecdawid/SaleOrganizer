@@ -1,4 +1,4 @@
-namespace SaleOrganizer.Infrastructure
+namespace SaleOrganizer.Infrastructure.Photos
 {
     public class CloudinarySettings
     {
