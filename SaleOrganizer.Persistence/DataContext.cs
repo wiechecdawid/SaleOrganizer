@@ -12,6 +12,7 @@ namespace SaleOrganizer.Persistence
         public DbSet<Cloth> Clothes { get; set; }
         public DbSet<Offering> Offerings { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
