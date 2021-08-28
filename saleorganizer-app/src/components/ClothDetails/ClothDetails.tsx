@@ -1,19 +1,42 @@
 import Cloth from '../../interfaces/cloth'
 import { useParams } from 'react-router-dom'
-
-interface Props {
-    cloth: Cloth
-}
+import { Service } from '../../interfaces/service-status';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type Params = {
     id: string
 }
 
-export const ClothDetails = ({ cloth }: Props) => {
+export const ClothDetails = () => {
     const { id } = useParams<Params>();
+
+    const [ cloth, setCloth ] = useState({} as Service<Cloth>)
+
+    useEffect( () => { 
+        const p = axios.get(`http://localhost:5000/api/clothes/${id}`)
+            .then( response => setCloth( () => {
+                return {
+                    status: 'loaded',
+                    payload: { ...response.data }
+                }
+            }))
+            .catch( error => {
+                console.log(error)
+            })
+    }, [])
 
     return (
     <>
-        <h1> { id } </h1>
+        { cloth.status === 'loading' && <div>Loading</div> }
+        { cloth.status === 'loaded' &&
+            <>
+                <h1>{ cloth.payload.name }</h1>
+                <p>{ cloth.payload.description }</p>
+            </>
+        }
+        { cloth.status === 'error' && 
+            <div>Error: {cloth.status}</div>
+        }
     </>
 )}
