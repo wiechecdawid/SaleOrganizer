@@ -30,7 +30,9 @@ namespace SaleOrganizer.Application.Clothes
             }
             public async Task<List<ClothDto>> Handle(Query request, CancellationToken token)
             {
-                var clothes = await _context.Clothes.ToListAsync();
+                var clothes = await _context.Clothes
+                    .Include(c => c.Photo)
+                    .ToListAsync();
 
                 if(clothes == null)
                     throw new RestException(HttpStatusCode.NotFound, new {
