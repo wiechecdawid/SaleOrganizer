@@ -48,7 +48,8 @@ namespace SaleOrganizer.API
 
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("Default"));
+                //options.UseSqlite(Configuration.GetConnectionString("Default"));
+                options.UseNpgsql(Configuration.GetConnectionString("Default"));
             });
 
             services.AddCors(options =>
