@@ -13,7 +13,7 @@ namespace SaleOrganizer.Application.Photos
     {
         public class Command: IRequest
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler: IRequestHandler<Command, Unit>

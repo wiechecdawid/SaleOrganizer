@@ -23,5 +23,8 @@ namespace SaleOrganizer.API.Controllers
             command.ClothId = clothId;
             return await _mediator.Send(command);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(string id) => await _mediator.Send(new Delete.Command{ Id = id });
     }
 }
