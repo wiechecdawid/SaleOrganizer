@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SaleOrganizer.Application.DTOs;
 using SaleOrganizer.Application.Errors;
 using SaleOrganizer.Domain;
@@ -32,7 +33,9 @@ namespace SaleOrganizer.Application.Clothes
             }
             public async Task<ClothDto> Handle(Query request, CancellationToken token)
             {
-                var cloth = await _context.Clothes.FindAsync(request.Id);
+                var cloth = await _context.Clothes
+                    .Include(c => c.Photo)
+                    .SingleOrDefaultAsync(c => c.Id == request.Id);
 
                 if (cloth == null)
                     throw new RestException(HttpStatusCode.NotFound, new
