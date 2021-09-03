@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom'
 import { Service } from '../../interfaces/service-status';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import PhotoComponent from '../PhotoComponent/PhotoComponent';
+import PhotoComponent from '../common/PhotoComponent/PhotoComponent';
 import styled from 'styled-components';
+import { PhotoInput } from '../common/photo/PhotoInput';
+import { SuccessButton } from '../common/buttons/SuccessButton';
 
 const DetailsWrapper = styled.div`
 `
@@ -43,6 +45,7 @@ export const ClothDetails = () => {
                         <PhotoComponent url={cloth.payload.photo.url} />
                     </>
                 }
+                <SuccessButton content={cloth.payload.photo ? "Zmien zdjecie" : "Dodaj Zdjecie"} />
                 <p>{ cloth.payload.description }</p>
             </>
         }

@@ -4,9 +4,10 @@ import OfferingList from '../OfferingList/OfferingList';
 import PurchaseList from '../PurchaseList/PurchaseList';
 
 const Wrapper = styled.div`
+    width: 80vw;
     margin: 20px auto;
-    padding: 5px;
-    background-color: #c8caca;
+    padding: 15px 0px;
+    background-color: #eff3f5;
     & ul {
         list-style-type: none;
     }
