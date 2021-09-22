@@ -18,6 +18,8 @@ namespace SaleOrganizer.Application.Clothes
             public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
+            public string StorageInfo { get; set; }
+            public string DetailedStorageInfo { get; set; }
             public ClothStatus? Status { get; set; }
         }
 
@@ -43,6 +45,8 @@ namespace SaleOrganizer.Application.Clothes
                 cloth.Name = request.Name ?? cloth.Name;
                 cloth.Description = request.Description ?? cloth.Description;
                 cloth.Status = request.Status ?? cloth.Status;
+                cloth.StorageInfo = request.StorageInfo ?? cloth.StorageInfo;
+                cloth.DetailedStorageInfo = request.DetailedStorageInfo ?? cloth.DetailedStorageInfo;
 
                 var success = await _context.SaveChangesAsync() > 0;
 

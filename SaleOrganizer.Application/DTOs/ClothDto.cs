@@ -11,6 +11,8 @@ namespace SaleOrganizer.Application.DTOs
         public string Name { get; set; }
         public string Description { get; set; }
         public Photo Photo { get; set; }
+        public string StorageInfo { get; set; }
+        public string DetailedStorageInfo { get; set; }
         public ClothStatusDto Status { get; set; }
     }
 

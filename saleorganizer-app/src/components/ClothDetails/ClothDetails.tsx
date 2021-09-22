@@ -60,6 +60,9 @@ export const ClothDetails = () => {
                     <PhotoInput clothId={cloth.payload.id} />
                 }
                 <p>{ cloth.payload.description }</p>
+                <h3>Przechowanie</h3>
+                <p>{ cloth.payload.storageInfo }</p>
+                <p>{ cloth.payload.detailedStorageInfo }</p>
             </>
         }
         { cloth.status === 'error' && 

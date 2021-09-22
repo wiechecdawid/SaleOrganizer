@@ -97,3 +97,25 @@ BEGIN
     VALUES ('20210829084431_PostgresInit', '3.1.4');
     END IF;
 END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210922111041_ClothStorage') THEN
+    ALTER TABLE "Clothes" ADD "DetailedStorageInfo" text NULL;
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210922111041_ClothStorage') THEN
+    ALTER TABLE "Clothes" ADD "StorageInfo" text NULL;
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210922111041_ClothStorage') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20210922111041_ClothStorage', '3.1.4');
+    END IF;
+END $$;

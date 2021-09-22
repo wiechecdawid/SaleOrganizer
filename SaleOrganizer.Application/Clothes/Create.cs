@@ -17,6 +17,8 @@ namespace SaleOrganizer.Application.Clothes
             public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
+            public string StorageInfo { get; set; }
+            public string DetailedStorageInfo { get; set; }
             public ClothStatus Status { get; set; }
         }
 
@@ -44,6 +46,8 @@ namespace SaleOrganizer.Application.Clothes
                     Id = request.Id,
                     Name = request.Name,
                     Description = request.Description,
+                    StorageInfo = request.StorageInfo,
+                    DetailedStorageInfo = request.DetailedStorageInfo,
                     Status = request.Status
                 };
 
