@@ -19,6 +19,11 @@ export const ClothDetails = () => {
     const { id } = useParams<Params>();
 
     const [ cloth, setCloth ] = useState({} as Service<Cloth>)
+    const [ isAddPthoroPressed, setAddPhotoPressed ] = useState(false)
+
+    const handlePhotoChange = () => {
+        setAddPhotoPressed(!isAddPthoroPressed)
+    }
 
     useEffect( () => { 
         const p = axios.get(`http://localhost:5000/api/clothes/${id}`)
@@ -33,6 +38,10 @@ export const ClothDetails = () => {
             })
     }, [])
 
+    useEffect( () => {
+        console.log("Photo change button pressed")
+    }, [ handlePhotoChange ])
+
     return (
     <>
         { cloth.status === 'loading' && <div>Loading</div> }
@@ -45,7 +54,11 @@ export const ClothDetails = () => {
                         <PhotoComponent url={cloth.payload.photo.url} />
                     </>
                 }
-                <SuccessButton content={cloth.payload.photo ? "Zmien zdjecie" : "Dodaj Zdjecie"} />
+                <SuccessButton onClick={handlePhotoChange} content={cloth.payload.photo ? "Zmień zdjęcie" : "Dodaj zdjęcie"} />
+                {
+                    isAddPthoroPressed &&
+                    <PhotoInput clothId={cloth.payload.id} />
+                }
                 <p>{ cloth.payload.description }</p>
             </>
         }

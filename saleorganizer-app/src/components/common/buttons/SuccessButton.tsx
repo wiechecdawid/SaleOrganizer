@@ -4,7 +4,8 @@ const Button = styled.button`
     background-color: #23b660;
 `
 interface Props {
-    content: string
+    content: string,
+    onClick: () => void
 }
 
-export const SuccessButton = ( { content }: Props) => <Button>{ content }</Button>
+export const SuccessButton = ( { onClick, content }: Props) => <Button onClick={onClick}>{ content }</Button>

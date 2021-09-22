@@ -15,7 +15,7 @@ namespace SaleOrganizer.Application.Photos
         public class Command: IRequest<Photo>
         {
             public IFormFile File { get; set; }
-            public int ClothId { get; set; }
+            public int? ClothId { get; set; }
         }
 
         public class Handler: IRequestHandler<Command, Photo>
