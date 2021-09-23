@@ -14,7 +14,6 @@ namespace SaleOrganizer.Application.Clothes
     {
         public class Command : IRequest
         {
-            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public string StorageInfo { get; set; }
@@ -43,7 +42,7 @@ namespace SaleOrganizer.Application.Clothes
             {
                 var cloth = new Cloth
                 {
-                    Id = request.Id,
+                    Id = Guid.NewGuid().ToString(),
                     Name = request.Name,
                     Description = request.Description,
                     StorageInfo = request.StorageInfo,

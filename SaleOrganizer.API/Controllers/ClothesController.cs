@@ -29,7 +29,7 @@ namespace SaleOrganizer.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClothDto>> Get(int id)
+        public async Task<ActionResult<ClothDto>> Get(string id)
         {
             return await _mediator.Send(new GetById.Query { Id = id });
         }
@@ -41,13 +41,13 @@ namespace SaleOrganizer.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(int id)
+        public async Task<ActionResult<Unit>> Delete(string id)
         {
             return await _mediator.Send(new Delete.Command { Id = id });
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
+        public async Task<ActionResult<Unit>> Edit(string id, Edit.Command command)
         {
             command.Id = id;
             return await _mediator.Send(command);

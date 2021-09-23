@@ -14,8 +14,8 @@ namespace SaleOrganizer.Application.Offerings
     {
         public class Command : IRequest
         {
-            public int Id { get; set; }
-            public int? ClothId { get; set; }
+            public string Id { get; set; }
+            public string ClothId { get; set; }
             public string ReferenceLink { get; set; }
             public decimal? Price { get; set; }
             public TradeType? TradeType { get; set; }

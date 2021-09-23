@@ -18,7 +18,7 @@ namespace SaleOrganizer.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Photo>> Add([FromQuery]int clothId, [FromForm]Add.Command command)
+        public async Task<ActionResult<Photo>> Add([FromQuery]string clothId, [FromForm]Add.Command command)
         {
             command.ClothId = clothId;
             return await _mediator.Send(command);

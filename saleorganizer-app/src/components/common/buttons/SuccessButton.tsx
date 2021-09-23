@@ -5,7 +5,7 @@ const Button = styled.button`
 `
 interface Props {
     content: string,
-    onClick: () => void
+    onClick?: () => void
 }
 
-export const SuccessButton = ( { onClick, content }: Props) => <Button onClick={onClick}>{ content }</Button>
+export const SuccessButton = ( { content, onClick }: Props) => <Button onClick={onClick}>{ content }</Button>

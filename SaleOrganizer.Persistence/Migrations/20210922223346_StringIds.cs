@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SaleOrganizer.Persistence.Migrations
 {
-    public partial class PostgresInit : Migration
+    public partial class StringIds : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,12 +23,13 @@ namespace SaleOrganizer.Persistence.Migrations
                 name: "Clothes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
-                    PhotoId = table.Column<string>(nullable: true)
+                    PhotoId = table.Column<string>(nullable: true),
+                    StorageInfo = table.Column<string>(nullable: true),
+                    DetailedStorageInfo = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,9 +46,8 @@ namespace SaleOrganizer.Persistence.Migrations
                 name: "Offerings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ClothId = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    ClothId = table.Column<string>(nullable: true),
                     ReferenceLink = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     TradeType = table.Column<int>(nullable: false),
@@ -65,16 +64,15 @@ namespace SaleOrganizer.Persistence.Migrations
                         column: x => x.ClothId,
                         principalTable: "Clothes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Purchases",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ClothId = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    ClothId = table.Column<string>(nullable: true),
                     ReferenceLink = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     TradeType = table.Column<int>(nullable: false),
@@ -91,7 +89,7 @@ namespace SaleOrganizer.Persistence.Migrations
                         column: x => x.ClothId,
                         principalTable: "Clothes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

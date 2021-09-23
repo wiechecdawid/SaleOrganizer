@@ -17,7 +17,7 @@ namespace SaleOrganizer.Application.Purchases
     {
         public class Query : IRequest<PurchaseDto>
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, PurchaseDto>

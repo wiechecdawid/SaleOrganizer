@@ -15,8 +15,7 @@ namespace SaleOrganizer.Application.Purchases
     {
         public class Command : IRequest
         {
-            public int Id { get; set; }
-            public int ClothId { get; set; }
+            public string ClothId { get; set; }
             public Cloth Cloth { get; set; }
             public string ReferenceLink { get; set; }
             public decimal Price { get; set; }
@@ -56,7 +55,7 @@ namespace SaleOrganizer.Application.Purchases
 
                 var purchase = new Purchase
                 {
-                    Id = request.Id,
+                    Id = Guid.NewGuid().ToString(),
                     ClothId = request.ClothId,
                     Cloth = cloth,
                     Price = request.Price,

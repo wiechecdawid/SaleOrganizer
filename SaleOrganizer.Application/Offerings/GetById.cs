@@ -18,7 +18,7 @@ namespace SaleOrganizer.Application.Offerings
     {
         public class Query : IRequest<OfferingDto>
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, OfferingDto>

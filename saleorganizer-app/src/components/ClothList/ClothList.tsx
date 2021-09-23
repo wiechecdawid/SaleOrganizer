@@ -4,6 +4,8 @@ import Cloth from "../../interfaces/cloth";
 import { connect } from "react-redux";
 import { getClothes } from "../../actions/clothesActions";
 import { AppState } from "../../interfaces/states";
+import { SuccessButton } from "../common/buttons/SuccessButton";
+import { Link } from "react-router-dom";
 
 interface Props {
     clothes: Cloth[],
@@ -18,6 +20,7 @@ const ClothList = ({ clothes, getClothes }: Props) => {
     return (
     <>
         <StyledLink to="/clothes"><p>Moje ubranka:</p></StyledLink>
+
         <ul>
             {clothes && 
                 clothes.map((cloth: any) => (
@@ -26,6 +29,10 @@ const ClothList = ({ clothes, getClothes }: Props) => {
                 </li>
             ))}  
         </ul>
+        
+        <Link to="/clothes/form">
+            <SuccessButton content="Dodaj ubranko" />
+        </Link>        
     </>
 )}
 

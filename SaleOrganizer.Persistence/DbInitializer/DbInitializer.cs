@@ -40,25 +40,25 @@ namespace SaleOrganizer.Persistence.DbInitializer
                         {
                             new Cloth
                             {
-                                Id = 1,
+                                Id = "test1",
                                 Name = "Spodnie",
                                 Description = "Niebiekie jeansy z dziurą na kolanie"
                             },
                             new Cloth
                             {
-                                Id = 2,
+                                Id = "test2",
                                 Name = "Kurtka",
                                 Description = "Brązowa skórzana kurtka"
                             },
                             new Cloth
                             {
-                                Id = 3,
+                                Id = "test3",
                                 Name = "Bluzka",
                                 Description = "Biała bluzka w groszki"
                             },
                             new Cloth
                             {
-                                Id = 4,
+                                Id = "test4",
                                 Name = "Czapka",
                                 Description = "Czarna zimowa czapka"
                             }
@@ -73,8 +73,8 @@ namespace SaleOrganizer.Persistence.DbInitializer
                         {
                             new Offering
                             {
-                                Id = 1,
-                                ClothId = 1,
+                                Id = Guid.NewGuid().ToString(),
+                                ClothId = "test4",
                                 ReferenceLink = "abc.com",
                                 TradeType = TradeType.allegro,
                                 DeliveryType = DeliveryType.ruchPackage,
@@ -83,8 +83,8 @@ namespace SaleOrganizer.Persistence.DbInitializer
                     },
                             new Offering
                             {
-                                Id = 2,
-                                ClothId = 2,
+                                Id = Guid.NewGuid().ToString(),
+                                ClothId = "test3",
                                 ReferenceLink = "abc.com",
                                 TradeType = TradeType.vinted,
                                 DeliveryType = DeliveryType.inpost,
@@ -102,8 +102,8 @@ namespace SaleOrganizer.Persistence.DbInitializer
                         {
                             new Purchase
                             {
-                                Id = 1,
-                                ClothId = 3,
+                                Id = Guid.NewGuid().ToString(),
+                                ClothId = "test2",
                                 ReferenceLink = "abc.com",
                                 TradeType = TradeType.allegro,
                                 DeliveryType = DeliveryType.ruchPackage,
@@ -113,8 +113,8 @@ namespace SaleOrganizer.Persistence.DbInitializer
                             },
                             new Purchase
                             {
-                                Id = 2,
-                                ClothId = 4,
+                                Id = Guid.NewGuid().ToString(),
+                                ClothId = "test1",
                                 ReferenceLink = "abc.com",
                                 TradeType = TradeType.vinted,
                                 DeliveryType = DeliveryType.inpost,

@@ -10,8 +10,8 @@ using SaleOrganizer.Persistence;
 namespace SaleOrganizer.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210922111041_ClothStorage")]
-    partial class ClothStorage
+    [Migration("20210922223346_StringIds")]
+    partial class StringIds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,10 +23,8 @@ namespace SaleOrganizer.Persistence.Migrations
 
             modelBuilder.Entity("SaleOrganizer.Domain.Cloth", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -55,13 +53,11 @@ namespace SaleOrganizer.Persistence.Migrations
 
             modelBuilder.Entity("SaleOrganizer.Domain.Offering", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    b.Property<int>("ClothId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ClothId")
+                        .HasColumnType("text");
 
                     b.Property<int>("DeliveryType")
                         .HasColumnType("integer");
@@ -106,13 +102,11 @@ namespace SaleOrganizer.Persistence.Migrations
 
             modelBuilder.Entity("SaleOrganizer.Domain.Purchase", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    b.Property<int>("ClothId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ClothId")
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("DeliveryDate")
                         .HasColumnType("timestamp without time zone");
@@ -153,18 +147,14 @@ namespace SaleOrganizer.Persistence.Migrations
                 {
                     b.HasOne("SaleOrganizer.Domain.Cloth", "Cloth")
                         .WithMany("Offerings")
-                        .HasForeignKey("ClothId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClothId");
                 });
 
             modelBuilder.Entity("SaleOrganizer.Domain.Purchase", b =>
                 {
                     b.HasOne("SaleOrganizer.Domain.Cloth", "Cloth")
                         .WithMany("Purchases")
-                        .HasForeignKey("ClothId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClothId");
                 });
 #pragma warning restore 612, 618
         }

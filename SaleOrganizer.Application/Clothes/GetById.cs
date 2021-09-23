@@ -18,7 +18,7 @@ namespace SaleOrganizer.Application.Clothes
     {
         public class Query : IRequest<ClothDto>
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, ClothDto>

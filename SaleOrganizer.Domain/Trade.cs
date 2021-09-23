@@ -6,8 +6,8 @@ namespace SaleOrganizer.Domain
 {
     public class Trade
     {
-        public int Id { get; set; }
-        public int ClothId { get; set; }
+        public string Id { get; set; }
+        public string ClothId { get; set; }
         public virtual Cloth Cloth { get; set; }
         public string ReferenceLink { get; set; }
         public decimal Price { get; set; }

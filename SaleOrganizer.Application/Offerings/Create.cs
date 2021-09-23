@@ -16,8 +16,7 @@ namespace SaleOrganizer.Application.Offerings
     {
         public class Command : IRequest
         {
-            public int Id { get; set; }
-            public int ClothId { get; set; }
+            public string ClothId { get; set; }
             public string ReferenceLink { get; set; }
             public decimal Price { get; set; }
             public TradeType TradeType { get; set; }
@@ -54,7 +53,7 @@ namespace SaleOrganizer.Application.Offerings
 
                 var offering = new Offering
                 {
-                    Id = request.Id,
+                    Id = Guid.NewGuid().ToString(),
                     ClothId = request.ClothId,
                     Cloth = cloth,
                     ReferenceLink = request.ReferenceLink,
