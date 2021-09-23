@@ -1,16 +1,15 @@
-import axios from "axios";
-import { FormEvent } from "react";
+import axios, { AxiosResponse } from "axios";
+import { FormEvent, useState } from "react";
 import { Redirect } from "react-router";
 import Cloth from "../../../interfaces/cloth";
 
-type FormType = 'edit' | 'add'
-
 interface Props {
-    type: FormType,
     cloth?: Cloth
 }
 
-export const ClothForm = ( { type='add', cloth }: Props ) => {
+export const ClothForm = ( { cloth }: Props ) => {
+    const redirectUrl = cloth?.id === undefined ? "/clothes" : `/clothes/${cloth?.id}`
+    const [ posted, setPosted ] = useState(false)
     const submitHandler = async(ev: FormEvent) => {
         ev.preventDefault()
 
@@ -28,38 +27,45 @@ export const ClothForm = ( { type='add', cloth }: Props ) => {
             detailedStorageInfo: detailed.value
         } as Cloth
 
-        const serviceUrl = 'http://localhost:5000/api/clothes'
+        const serviceUrl = cloth === undefined ? 'http://localhost:5000/api/clothes' : `http://localhost:5000/api/clothes/${cloth?.id}`
 
-        if(type==='add') {
-            console.log(body)
-            await axios({
-                    method: "post",
-                    url: serviceUrl,
-                    data: body
-                }).catch( error => {
-                    console.log(error)
-                })
-            return <Redirect to="/clothes" />
-        }
+        axios({
+            method: "post",
+            url: serviceUrl,
+            data: body
+        })
+        .then( response => {
+            if(response.status === 200) {
+                setPosted(true)
+            }
+        })
+        .catch( error => {
+            console.log(error)
+        })
     }
 
+    const redirect = () => <Redirect to={redirectUrl} />
+
     return (
-        <form onSubmit={submitHandler}>
-            <label htmlFor="clothTitle">Nazwa ubranka: </label>
-            <input type="text" id="clothTitle" placeholder={cloth?.name && 'Nazwa ubranka'} value={cloth?.name} />
+        <>
+            { posted && redirect() }
+            <form onSubmit={submitHandler}>
+                <label htmlFor="clothTitle">Nazwa ubranka: </label>
+                <input type="text" id="clothTitle" placeholder={cloth?.name && 'Nazwa ubranka'} value={cloth?.name} />
 
-            <label htmlFor="clothDescription">Opis: </label>
-            <input type="text" id="clothDescription" placeholder={cloth?.description && 'Opis ubranka'}
-                value={cloth?.description} />
+                <label htmlFor="clothDescription">Opis: </label>
+                <input type="text" id="clothDescription" placeholder={cloth?.description && 'Opis ubranka'}
+                    value={cloth?.description} />
 
-            <label htmlFor="storageInfo">Miejsce przechowywania: </label>
-            <input type="text" id="storageInfo" placeholder={cloth?.storageInfo && 'Napisz, gdzie trzymasz ubranko'}
-                value={cloth?.storageInfo} />
+                <label htmlFor="storageInfo">Miejsce przechowywania: </label>
+                <input type="text" id="storageInfo" placeholder={cloth?.storageInfo && 'Napisz, gdzie trzymasz ubranko'}
+                    value={cloth?.storageInfo} />
 
-            <label htmlFor="detailedStorageInfo">Miejsce przechowywania: </label>
-            <input type="text" id="detailedStorageInfo" placeholder={cloth?.detailedStorageInfo && 'Napisz, gdzie trzymasz ubranko'}
-                value={cloth?.detailedStorageInfo} />
+                <label htmlFor="detailedStorageInfo">Miejsce przechowywania - wiecej info: </label>
+                <input type="text" id="detailedStorageInfo" placeholder={cloth?.detailedStorageInfo && 'Napisz, gdzie trzymasz ubranko'}
+                    value={cloth?.detailedStorageInfo} />
 
-            <input type="submit" value="Potwierdź" />
-        </form>
+                <input type="submit" value="Potwierdź" />
+            </form>
+        </>
 )}
