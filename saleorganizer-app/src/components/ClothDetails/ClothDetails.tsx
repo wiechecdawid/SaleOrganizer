@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import { PhotoInput } from '../common/photo/PhotoInput';
 import { SuccessButton } from '../common/buttons/SuccessButton';
 import { DeleteButton } from '../common/buttons/DeleteButton';
+import { CustomButton } from '../common/buttons/CustomButton';
+import { ClothForm } from '../common/ClothForm/ClothForm';
 
 const DetailsWrapper = styled.div`
 `
@@ -22,6 +24,7 @@ export const ClothDetails = () => {
     const [ cloth, setCloth ] = useState({} as Service<Cloth>)
     const [ isAddPthoroPressed, setAddPhotoPressed ] = useState(false)
     const [ isDeleted, setDeleted ] = useState(false)
+    const [ formEnabled, setForm ] = useState(false)
 
     const handlePhotoChange = () => {
         setAddPhotoPressed(!isAddPthoroPressed)
@@ -48,6 +51,10 @@ export const ClothDetails = () => {
         console.log(`Cloth ${id} deleted`)
     }, [isDeleted])
 
+    useEffect( () => {
+        console.log(formEnabled ? "Form is enabled" : "Form disabled")
+    }, [formEnabled])
+
     const deleteHandler = () => {
         axios({
             method: "delete",
@@ -56,6 +63,10 @@ export const ClothDetails = () => {
             if(response.status === 200)
                 setDeleted(true)
         })
+    }
+
+    const formHandler = () => {
+        setForm(!formEnabled)
     }
 
     const redirect = () => <Redirect to="/clothes" />
@@ -83,6 +94,10 @@ export const ClothDetails = () => {
                     <p>{ cloth.payload.storageInfo }</p>
                     <p>{ cloth.payload.detailedStorageInfo }</p>
                     <DeleteButton content="Usuń" onClick={deleteHandler} />
+                    <CustomButton content="Edytuj" onClick={formHandler} />
+                    {formEnabled &&
+                        <ClothForm cloth={cloth.payload} />
+                    }
                 </>
             }
             { cloth.status === 'error' && 

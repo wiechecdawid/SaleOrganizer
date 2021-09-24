@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from "axios";
-import { FormEvent, useState } from "react";
+import axios from "axios";
+import { FormEvent, useEffect, useState } from "react";
 import { Redirect } from "react-router";
 import Cloth from "../../../interfaces/cloth";
 
@@ -10,6 +10,11 @@ interface Props {
 export const ClothForm = ( { cloth }: Props ) => {
     const redirectUrl = cloth?.id === undefined ? "/clothes" : `/clothes/${cloth?.id}`
     const [ posted, setPosted ] = useState(false)
+
+    useEffect( () => {
+        posted && console.log("Request succeeded")
+    }, [posted])
+
     const submitHandler = async(ev: FormEvent) => {
         ev.preventDefault()
 
@@ -30,7 +35,7 @@ export const ClothForm = ( { cloth }: Props ) => {
         const serviceUrl = cloth === undefined ? 'http://localhost:5000/api/clothes' : `http://localhost:5000/api/clothes/${cloth?.id}`
 
         axios({
-            method: "post",
+            method: cloth === undefined ? "post" : "put",
             url: serviceUrl,
             data: body
         })
@@ -51,19 +56,19 @@ export const ClothForm = ( { cloth }: Props ) => {
             { posted && redirect() }
             <form onSubmit={submitHandler}>
                 <label htmlFor="clothTitle">Nazwa ubranka: </label>
-                <input type="text" id="clothTitle" placeholder={cloth?.name && 'Nazwa ubranka'} value={cloth?.name} />
+                <input type="text" id="clothTitle" placeholder={cloth?.name && 'Nazwa ubranka'} defaultValue={cloth?.name} />
 
                 <label htmlFor="clothDescription">Opis: </label>
                 <input type="text" id="clothDescription" placeholder={cloth?.description && 'Opis ubranka'}
-                    value={cloth?.description} />
+                    defaultValue={cloth?.description} />
 
                 <label htmlFor="storageInfo">Miejsce przechowywania: </label>
                 <input type="text" id="storageInfo" placeholder={cloth?.storageInfo && 'Napisz, gdzie trzymasz ubranko'}
-                    value={cloth?.storageInfo} />
+                    defaultValue={cloth?.storageInfo} />
 
                 <label htmlFor="detailedStorageInfo">Miejsce przechowywania - wiecej info: </label>
                 <input type="text" id="detailedStorageInfo" placeholder={cloth?.detailedStorageInfo && 'Napisz, gdzie trzymasz ubranko'}
-                    value={cloth?.detailedStorageInfo} />
+                    defaultValue={cloth?.detailedStorageInfo} />
 
                 <input type="submit" value="Potwierdź" />
             </form>
