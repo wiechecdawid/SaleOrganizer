@@ -34,6 +34,17 @@ namespace SaleOrganizer.Persistence.DbInitializer
             {
                 using (var context = scope.ServiceProvider.GetService<DataContext>())
                 {
+                    var users = new List<AppUser>();
+
+                    if(!context.Users.Any())
+                    {
+                        users.Add(new AppUser{ UserName="Wiechetek", Email="wiechetek@test.com" });
+                    }
+                    else
+                    {
+                        users = context.Users.ToList();
+                    }
+                    
                     if(!context.Clothes.Any())
                     {
                         var clothes = new List<Cloth>
@@ -42,25 +53,29 @@ namespace SaleOrganizer.Persistence.DbInitializer
                             {
                                 Id = "test1",
                                 Name = "Spodnie",
-                                Description = "Niebiekie jeansy z dziurą na kolanie"
+                                Description = "Niebiekie jeansy z dziurą na kolanie",
+                                UserId = users[0].Id
                             },
                             new Cloth
                             {
                                 Id = "test2",
                                 Name = "Kurtka",
-                                Description = "Brązowa skórzana kurtka"
+                                Description = "Brązowa skórzana kurtka",
+                                UserId = users[0].Id
                             },
                             new Cloth
                             {
                                 Id = "test3",
                                 Name = "Bluzka",
-                                Description = "Biała bluzka w groszki"
+                                Description = "Biała bluzka w groszki",
+                                UserId = users[0].Id
                             },
                             new Cloth
                             {
                                 Id = "test4",
                                 Name = "Czapka",
-                                Description = "Czarna zimowa czapka"
+                                Description = "Czarna zimowa czapka",
+                                UserId = users[0].Id
                             }
                         };
 
