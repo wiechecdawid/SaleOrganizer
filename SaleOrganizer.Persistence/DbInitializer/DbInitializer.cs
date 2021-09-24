@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SaleOrganizer.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SaleOrganizer.Persistence.DbInitializer
@@ -28,23 +28,25 @@ namespace SaleOrganizer.Persistence.DbInitializer
             }
         }
 
-        public async Task Seed()
+        public async Task Seed(UserManager<AppUser> manager)
         {
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var context = scope.ServiceProvider.GetService<DataContext>())
                 {
-                    var users = new List<AppUser>();
+                    var user = new AppUser();
 
-                    if(!context.Users.Any())
+                    if(!manager.Users.Any())
                     {
-                        users.Add(new AppUser{ UserName="Wiechetek", Email="wiechetek@test.com" });
+                        user = new AppUser{ UserName="Wiechetek", Email="wiechetek@test.com" };
+
+                        await manager.CreateAsync(user, "P@ssvv0rd");
                     }
                     else
                     {
-                        users = context.Users.ToList();
+                        user = await manager.Users.FirstAsync();
                     }
-                    
+
                     if(!context.Clothes.Any())
                     {
                         var clothes = new List<Cloth>
@@ -54,28 +56,28 @@ namespace SaleOrganizer.Persistence.DbInitializer
                                 Id = "test1",
                                 Name = "Spodnie",
                                 Description = "Niebiekie jeansy z dziurą na kolanie",
-                                UserId = users[0].Id
+                                UserId = user.Id
                             },
                             new Cloth
                             {
                                 Id = "test2",
                                 Name = "Kurtka",
                                 Description = "Brązowa skórzana kurtka",
-                                UserId = users[0].Id
+                                UserId = user.Id
                             },
                             new Cloth
                             {
                                 Id = "test3",
                                 Name = "Bluzka",
                                 Description = "Biała bluzka w groszki",
-                                UserId = users[0].Id
+                                UserId = user.Id
                             },
                             new Cloth
                             {
                                 Id = "test4",
                                 Name = "Czapka",
                                 Description = "Czarna zimowa czapka",
-                                UserId = users[0].Id
+                                UserId = user.Id
                             }
                         };
 

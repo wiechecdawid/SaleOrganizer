@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using SaleOrganizer.Domain;
 
 namespace SaleOrganizer.Persistence.DbInitializer
 {
@@ -14,6 +13,6 @@ namespace SaleOrganizer.Persistence.DbInitializer
         /// <summary>
         /// Populates new database with dummy values
         /// </summary>
-        Task Seed();
+        Task Seed(UserManager<AppUser> manager);
     }
 }
