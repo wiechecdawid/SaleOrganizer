@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ using SaleOrganizer.API.Middleware;
 using SaleOrganizer.Application.Clothes;
 using SaleOrganizer.Application.Interfaces;
 using SaleOrganizer.Application.Mappings;
+using SaleOrganizer.Domain;
 using SaleOrganizer.Infrastructure.Photos;
 using SaleOrganizer.Persistence;
 using SaleOrganizer.Persistence.DbInitializer;
@@ -74,8 +76,9 @@ namespace SaleOrganizer.API
                 using (var scope = scopeFactory.CreateScope())
                 {
                     var initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+                    var manager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
                     initializer.Initialize().Wait();
-                    initializer.Seed().Wait();
+                    initializer.Seed(manager).Wait();
                 }
                 //app.UseDeveloperExceptionPage();
             }
