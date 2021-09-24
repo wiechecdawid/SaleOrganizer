@@ -9,6 +9,8 @@ namespace SaleOrganizer.Domain
         public string Description { get; set; }
         public ClothStatus Status { get; set; }
         public Photo Photo { get; set; }
+        public string UserId { get; set; }
+        public virtual AppUser User { get; set; }
         public string StorageInfo { get; set; }
         public string DetailedStorageInfo { get; set; }
         public ICollection<Offering> Offerings { get; set; }

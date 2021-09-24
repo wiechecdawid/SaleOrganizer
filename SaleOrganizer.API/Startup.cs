@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SaleOrganizer.API.Extensions;
 using SaleOrganizer.API.Middleware;
 using SaleOrganizer.Application.Clothes;
 using SaleOrganizer.Application.Interfaces;
@@ -45,6 +46,7 @@ namespace SaleOrganizer.API
             services.AddMediatR(typeof(Get.Handler).Assembly);
             services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            services.AddIdentityServices(Configuration);
 
             services.AddDbContext<DataContext>(options =>
             {

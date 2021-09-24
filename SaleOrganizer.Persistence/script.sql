@@ -263,3 +263,63 @@ BEGIN
     VALUES ('20210924211146_IdentityAdded', '3.1.18');
     END IF;
 END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924223818_UserClothesRelationDefined') THEN
+    ALTER TABLE "Clothes" ADD "UserId" text NULL;
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924223818_UserClothesRelationDefined') THEN
+    CREATE INDEX "IX_Clothes_UserId" ON "Clothes" ("UserId");
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924223818_UserClothesRelationDefined') THEN
+    ALTER TABLE "Clothes" ADD CONSTRAINT "FK_Clothes_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE RESTRICT;
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924223818_UserClothesRelationDefined') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20210924223818_UserClothesRelationDefined', '3.1.18');
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924224937_ConfigurationConstraint') THEN
+    ALTER TABLE "Clothes" DROP CONSTRAINT "FK_Clothes_AspNetUsers_UserId";
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924224937_ConfigurationConstraint') THEN
+    ALTER TABLE "Clothes" ALTER COLUMN "UserId" TYPE text;
+    ALTER TABLE "Clothes" ALTER COLUMN "UserId" SET NOT NULL;
+    ALTER TABLE "Clothes" ALTER COLUMN "UserId" DROP DEFAULT;
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924224937_ConfigurationConstraint') THEN
+    ALTER TABLE "Clothes" ADD CONSTRAINT "FK_Clothes_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE;
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM "__EFMigrationsHistory" WHERE "MigrationId" = '20210924224937_ConfigurationConstraint') THEN
+    INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+    VALUES ('20210924224937_ConfigurationConstraint', '3.1.18');
+    END IF;
+END $$;

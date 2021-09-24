@@ -19,6 +19,11 @@ namespace SaleOrganizer.Persistence.Configurations
                 .HasMany(c => c.Purchases)
                 .WithOne(t => t.Cloth)
                 .HasForeignKey(t => t.ClothId);
+            builder
+                .HasOne(c => c.User)
+                .WithMany(u => u.Clothes)
+                .HasForeignKey(c => c.UserId)
+                .IsRequired();
         }
     }
 }
