@@ -4,10 +4,11 @@ import { Redirect } from "react-router";
 import Cloth from "../../../interfaces/cloth";
 
 interface Props {
+    onSuccess: () => void,
     cloth?: Cloth
 }
 
-export const ClothForm = ( { cloth }: Props ) => {
+export const ClothForm = ( { onSuccess, cloth }: Props ) => {
     const redirectUrl = cloth?.id === undefined ? "/clothes" : `/clothes/${cloth?.id}`
     const [ posted, setPosted ] = useState(false)
 
@@ -41,6 +42,7 @@ export const ClothForm = ( { cloth }: Props ) => {
         })
         .then( response => {
             if(response.status === 200) {
+                onSuccess()
                 setPosted(true)
             }
         })

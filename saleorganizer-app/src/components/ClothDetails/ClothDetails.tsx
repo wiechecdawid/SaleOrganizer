@@ -95,9 +95,7 @@ export const ClothDetails = () => {
                     <p>{ cloth.payload.detailedStorageInfo }</p>
                     <DeleteButton content="Usuń" onClick={deleteHandler} />
                     <CustomButton content="Edytuj" onClick={formHandler} />
-                    {formEnabled &&
-                        <ClothForm cloth={cloth.payload} />
-                    }
+                    {formEnabled && <ClothForm onSuccess={() => setForm(false)} cloth={cloth.payload} />}
                 </>
             }
             { cloth.status === 'error' && 
