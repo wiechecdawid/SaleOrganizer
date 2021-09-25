@@ -39,9 +39,12 @@ namespace SaleOrganizer.API.Services
                 //new Claim(ClaimTypes.Expiration, DateTime.Now.AddDays(7).ToString()),
             };
 
-            foreach(var service in user.Services)
+            if(user.Services != null )
             {
-                claims.Add(new Claim("Services", service));
+                foreach(var service in user.Services)
+                {
+                    claims.Add(new Claim("Services", service));
+                }
             }
 
             return claims;
