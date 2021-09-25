@@ -29,7 +29,7 @@ namespace SaleOrganizer.API.Controllers
             return await _mediator.Send(new Get.Query());
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ClothDto>> Get(string id)
         {

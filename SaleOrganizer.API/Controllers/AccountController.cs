@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SaleOrganizer.API.DTOs;
@@ -7,6 +8,7 @@ using SaleOrganizer.Domain;
 
 namespace SaleOrganizer.API.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController: ControllerBase
