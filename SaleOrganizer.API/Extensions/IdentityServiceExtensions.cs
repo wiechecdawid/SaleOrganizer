@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using SaleOrganizer.Domain;
 using SaleOrganizer.Persistence;
 using Microsoft.AspNetCore.Identity;
+using SaleOrganizer.API.Services;
 
 namespace SaleOrganizer.API.Extensions
 {
@@ -18,6 +19,7 @@ namespace SaleOrganizer.API.Extensions
             .AddSignInManager<SignInManager<AppUser>>();
 
             services.AddAuthentication();
+            services.AddScoped<TokenService>();
 
             return services;
         }

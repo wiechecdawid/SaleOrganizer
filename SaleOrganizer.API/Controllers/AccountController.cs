@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SaleOrganizer.API.DTOs;
+using SaleOrganizer.API.Services;
 using SaleOrganizer.Domain;
 
 namespace SaleOrganizer.API.Controllers
@@ -12,11 +13,12 @@ namespace SaleOrganizer.API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly TokenService _tokenSerice;
 
         public AccountController(UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager)
+            SignInManager<AppUser> signInManager, TokenService tokenService)
         {
-            (_userManager, _signInManager) = (userManager, signInManager);
+            (_userManager, _signInManager, _tokenSerice) = (userManager, signInManager, tokenService);
         }
 
         [HttpPost("login")]
@@ -32,7 +34,7 @@ namespace SaleOrganizer.API.Controllers
                 return Ok(new UserDto
                 {
                     UserName = user.UserName,
-                    Token = "todo",
+                    Token = _tokenSerice.CreateToken(user),
                     Email = user.Email
                 });
             }
