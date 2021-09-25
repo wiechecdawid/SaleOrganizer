@@ -89,6 +89,8 @@ namespace SaleOrganizer.API
 
             app.UseCors("LocalPolicy");
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

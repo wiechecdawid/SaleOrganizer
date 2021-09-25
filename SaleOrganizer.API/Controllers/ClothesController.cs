@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SaleOrganizer.Application.Clothes;
@@ -28,6 +29,7 @@ namespace SaleOrganizer.API.Controllers
             return await _mediator.Send(new Get.Query());
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ClothDto>> Get(string id)
         {
