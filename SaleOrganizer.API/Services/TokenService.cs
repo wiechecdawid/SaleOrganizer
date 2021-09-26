@@ -42,7 +42,8 @@ namespace SaleOrganizer.API.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email)
                 //new Claim(ClaimTypes.Expiration, DateTime.Now.AddDays(7).ToString()),
             };
 

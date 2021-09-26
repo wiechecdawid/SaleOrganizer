@@ -35,12 +35,7 @@ namespace SaleOrganizer.API.Controllers
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if(result.Succeeded)
             {
-                return Ok(new UserDto
-                {
-                    UserName = user.UserName,
-                    Token = _tokenService.CreateToken(user),
-                    Email = user.Email
-                });
+                return Ok(CreateUserObject(user));
             }
 
             return Unauthorized();
