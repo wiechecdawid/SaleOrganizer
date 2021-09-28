@@ -10,7 +10,8 @@ export enum ClothesActionTypes {
 
 export interface GetClothesAction {
     type: ClothesActionTypes.GET_CLOTHES,
-    payload: Cloth[]
+    payload: Cloth[] | null,
+    error: any | null
 }
 
 // extend with union operator if you have more actions
@@ -22,10 +23,16 @@ export const getClothes: ActionCreator<ThunkAction<Promise<any>, ClothesState, n
             const response = await axios.get('http://localhost:5000/api/clothes')
             dispatch({
                 type: ClothesActionTypes.GET_CLOTHES,
-                payload: response.data
+                payload: response.data,
+                error: null
             })
         } catch (error) {
             console.error(error);
+            dispatch({
+                type: ClothesActionTypes.GET_CLOTHES,
+                error: error,
+                payload: null
+            })
         }
     }
 }

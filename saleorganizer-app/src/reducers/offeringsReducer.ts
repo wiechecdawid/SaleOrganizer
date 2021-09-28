@@ -3,7 +3,8 @@ import { OfferingsActions, OfferingsActionTypes } from "../actions/offeringsActi
 import { OfferingsState } from "../interfaces/states";
 
 const initialOfferingsState: OfferingsState = {
-    data: []
+    data: [],
+    error: null
 }
 
 export const offeringsReducer: Reducer<OfferingsState, OfferingsActions> = (state = initialOfferingsState, action) => {

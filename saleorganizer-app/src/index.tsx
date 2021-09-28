@@ -3,9 +3,8 @@ import 'semantic-ui-css/semantic.min.css'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './store/store';
+import store from './stores/store';
 import { Provider } from 'react-redux';
-import React from 'react';
 
 ReactDOM.render(
   //<React.StrictMode>

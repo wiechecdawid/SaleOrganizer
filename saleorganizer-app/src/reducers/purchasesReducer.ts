@@ -3,7 +3,8 @@ import { PurchasesActions, PurchasesActionTypes } from "../actions/purchasesActi
 import { PurchasesState } from "../interfaces/states";
 
 const initialPurchasesState: PurchasesState = {
-    data: []
+    data: [],
+    error: null
 }
 
 export const purchasesReducer: Reducer<PurchasesState, PurchasesActions> = (state = initialPurchasesState, action) => {

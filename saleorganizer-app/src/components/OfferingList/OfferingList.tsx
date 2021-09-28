@@ -6,7 +6,7 @@ import { getOfferings } from "../../actions/offeringsActions";
 import { useEffect } from "react";
 
 interface Props {
-    offerings: Offering[];
+    offerings: Offering[] | null;
     getOfferings: any
 }
 

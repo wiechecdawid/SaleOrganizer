@@ -3,7 +3,8 @@ import { ClothesActions, ClothesActionTypes } from "../actions/clothesActions";
 import { ClothesState } from "../interfaces/states";
 
 const initialClothesState: ClothesState = {
-    data: []
+    data: [],
+    error: null
 }
 
 export const clothesReducer: Reducer<ClothesState, ClothesActions> = (state = initialClothesState, action) => {
@@ -11,7 +12,8 @@ export const clothesReducer: Reducer<ClothesState, ClothesActions> = (state = in
         case ClothesActionTypes.GET_CLOTHES: {
             return {
                 ...state,
-                data: action.payload
+                data: action.payload,
+                error: action.error                
             }
         }
         default: return state

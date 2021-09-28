@@ -6,7 +6,8 @@ import { AppState } from "../../interfaces/states";
 import { StyledLink } from "../common/StyledLink/StyledLink"
 
 interface Props {
-    purchases: Purchase[],
+    purchases: Purchase[] | null,
+    error: any | null
     getPurchases: any
 }
 
@@ -31,7 +32,7 @@ const PurchaseList = ( { purchases, getPurchases }: Props) => {
 
 const mapStateToProps = (store: AppState) => {
     return {
-        purchases: store.purchasesState.data
+        purchases: store.purchasesState.data,
     }
 }
 

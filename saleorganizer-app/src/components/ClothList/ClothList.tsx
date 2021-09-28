@@ -8,7 +8,7 @@ import { SuccessButton } from "../common/buttons/SuccessButton";
 import { Link } from "react-router-dom";
 
 interface Props {
-    clothes: Cloth[],
+    clothes: Cloth[] | null,
     getClothes: any
 }
 
