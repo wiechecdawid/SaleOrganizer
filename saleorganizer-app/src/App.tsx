@@ -9,6 +9,8 @@ import { PurchaseDetails } from './components/PurchaseDetails/PurchaseDetails';
 import ClothList from './components/ClothList/ClothList';
 import { ClothDetails } from './components/ClothDetails/ClothDetails';
 import { ClothForm } from './components/common/ClothForm/ClothForm';
+import LoginPage from './components/LoginPage/LoginPage';
+import { RegisterPage } from './components/RegisterPage/RegisterPage';
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
 
         <Switch>
           <Route path="/" exact={ true } component={ MainPage } />
+
+          <Route exact path="/account/login" component={ LoginPage } />
+          <Route exact path="/account/register" component={ RegisterPage } />
           
           <Route exact path="/offerings" component={ OfferingList } />
           <Route path="/offerings/:id" component={ OfferingDetails } />

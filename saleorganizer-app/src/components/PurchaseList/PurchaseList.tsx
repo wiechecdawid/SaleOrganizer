@@ -7,7 +7,6 @@ import { StyledLink } from "../common/StyledLink/StyledLink"
 
 interface Props {
     purchases: Purchase[] | null,
-    error: any | null
     getPurchases: any
 }
 

@@ -4,6 +4,7 @@ import User from "../interfaces/user";
 import { ActionCreator, Dispatch } from "redux";
 import axios from "axios";
 import UserForm from "../interfaces/userForm";
+import { getToken } from "../helpers/tokenHelpers";
 
 export enum UserActionTypes {
     GET_USER = 'GET_USER',
@@ -36,7 +37,14 @@ export type UserActions = GetUserAction |
 export const getUser: ActionCreator<ThunkAction<Promise<any>, UserState, null, GetUserAction>> = () => {
     return async (dispatch: Dispatch) => {
         try {
-            const response = await axios.get('http://localhost:5000/api/account')
+            const token = getToken()
+
+            const config = {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }
+            const response = await axios.get('http://localhost:5000/api/account', config)
 
             if(response.status !== 200) {
                 throw new Error(response.statusText)
