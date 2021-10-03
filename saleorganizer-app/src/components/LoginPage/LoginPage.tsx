@@ -7,6 +7,7 @@ import { AppState, UserState } from "../../interfaces/states";
 import UserForm from "../../interfaces/userForm";
 import { CustomForm } from "../common/CustomForm/CustomForm";
 import { ActionCreator } from "redux";
+import { saveToken } from "../../helpers/tokenHelpers"
 
 type PassedProps = {
     redirectUrl: string
@@ -22,10 +23,10 @@ export const LoginPage = ({ userState, login, props }: Props) => {
     const [ isLogged, setLogged ] = useState(false)
 
     useEffect( () => {
-        userState?.isLoggedIn && setLogged(true)
-    }, [userState])
+        isLogged && saveToken(userState.data!.token)
+    }, [isLogged])
 
-    const submitHandler = (ev: MouseEvent) => {
+    const submitHandler = async(ev: MouseEvent) => {
         ev.preventDefault()
 
         const email = document.getElementById("login-email") as HTMLInputElement
@@ -36,7 +37,9 @@ export const LoginPage = ({ userState, login, props }: Props) => {
             password: password?.value
         } as UserForm
 
-        login(userForm)
+        await login(userForm)
+
+        userState?.isLoggedIn && setLogged(true)
     }
 
     return (

@@ -20,9 +20,11 @@ namespace SaleOrganizer.API.Controllers
         private readonly TokenService _tokenService;
 
         public AccountController(UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager, TokenService tokenService)
+            SignInManager<AppUser> signInManager,
+            TokenService tokenService)
         {
-            (_userManager, _signInManager, _tokenService) = (userManager, signInManager, tokenService);
+            (_userManager, _signInManager, _tokenService)
+                = (userManager, signInManager, tokenService);
         }
 
         [HttpPost("login")]

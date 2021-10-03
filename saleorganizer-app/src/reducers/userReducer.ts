@@ -14,9 +14,8 @@ export const userReducer: Reducer<UserState, UserActions> = (state = initialUser
         case UserActionTypes.REGISTER:
         case UserActionTypes.LOGIN: {
             return {
-                ...state,
                 data: action.payload,
-                isLoggedIn: true,
+                isLoggedIn: action.payload ? true : false,
                 error: action.error
             }
         }

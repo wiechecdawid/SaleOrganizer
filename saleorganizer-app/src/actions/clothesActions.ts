@@ -3,6 +3,7 @@ import { ThunkAction } from "redux-thunk";
 import axios from "axios";
 import Cloth from "../interfaces/cloth";
 import { ClothesState } from "../interfaces/states";
+import { getToken } from "../helpers/tokenHelpers";
 
 export enum ClothesActionTypes {
     GET_CLOTHES = 'GET_CLOTHES'
@@ -20,7 +21,19 @@ export type ClothesActions = GetClothesAction
 export const getClothes: ActionCreator<ThunkAction<Promise<any>, ClothesState, null, GetClothesAction>> = () => {
     return async (dispatch: Dispatch) => {
         try {
-            const response = await axios.get('http://localhost:5000/api/clothes')
+            const token = getToken()
+
+            const config = {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }
+            const response = await axios.get('http://localhost:5000/api/clothes', config)
+
+            if(response.status !== 200) {
+                throw new Error(response.statusText)
+            }
+            
             dispatch({
                 type: ClothesActionTypes.GET_CLOTHES,
                 payload: response.data,

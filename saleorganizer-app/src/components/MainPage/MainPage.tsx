@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -28,24 +28,26 @@ interface Props{
     getUser: any
 }
 
-export const MainPage = ({ userState }: Props) => {
+export const MainPage = ({ userState, getUser }: Props) => {
     useEffect( () => {
         getUser()
-    })
+    }, [])
 
-    if(userState && userState.isLoggedIn)
-        return (
-            <Wrapper>
-                <OfferingList />
-                <PurchaseList />
-                <ClothList />
-            </Wrapper>
-        )
-    
-    return <Redirect to={{
-        pathname: "/account/login",
-        state: { redirectUrl: "/" }
-    }} />
+    return ( userState.data !== null || userState.error !== null ) ? (
+        userState?.data ? (   
+        <Wrapper>
+            <OfferingList />
+            <PurchaseList />
+            <ClothList />
+        </Wrapper>
+    ) : (
+        <Redirect to={{
+            pathname: "/account/login",
+            state: { redirectUrl: "/" }
+        }} />
+    )) : (
+        <div>Loading</div>
+    )
 }
 
 const mapStateToProps = (store: AppState) => {
