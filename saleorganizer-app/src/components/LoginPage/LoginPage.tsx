@@ -20,13 +20,11 @@ interface Props {
 }
 
 export const LoginPage = ({ userState, login, props }: Props) => {
-    const [ isLogged, setLogged ] = useState(false)
-
     useEffect( () => {
-        isLogged && saveToken(userState.data!.token)
-    }, [isLogged])
+        userState.data && saveToken(userState.data!.token)
+    }, [userState])
 
-    const submitHandler = async(ev: MouseEvent) => {
+    const submitHandler = (ev: MouseEvent) => {
         ev.preventDefault()
 
         const email = document.getElementById("login-email") as HTMLInputElement
@@ -37,15 +35,13 @@ export const LoginPage = ({ userState, login, props }: Props) => {
             password: password?.value
         } as UserForm
 
-        await login(userForm)
-
-        userState?.isLoggedIn && setLogged(true)
+        login(userForm)
     }
 
     return (
         <>
             {
-                isLogged &&
+                userState.data && 
                 <Redirect to={props?.location.state.state.redirectUrl || "/"} />
             }
             <CustomForm onSubmit={submitHandler}>
