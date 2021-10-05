@@ -22,6 +22,7 @@ using SaleOrganizer.Application.Clothes;
 using SaleOrganizer.Application.Interfaces;
 using SaleOrganizer.Application.Mappings;
 using SaleOrganizer.Domain;
+using SaleOrganizer.Infrastructure.Security;
 using SaleOrganizer.Infrastructure.Photos;
 using SaleOrganizer.Persistence;
 using SaleOrganizer.Persistence.DbInitializer;
@@ -55,6 +56,7 @@ namespace SaleOrganizer.API
 
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddMediatR(typeof(Get.Handler).Assembly);
             services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
             services.AddAutoMapper(typeof(MappingProfile).Assembly);

@@ -2,6 +2,7 @@ import axios from "axios"
 import { ChangeEventHandler, FormEventHandler, useState } from "react"
 import { Redirect } from "react-router"
 import styled from "styled-components"
+import { getToken } from "../../../helpers/tokenHelpers"
 
 interface Props {
     clothId: number
@@ -40,11 +41,15 @@ export const PhotoInput = ( { clothId }: Props ) => {
             const formData = new FormData()
             formData.append('file', photo)
 
+            const token = getToken()
+            const authorization = `Bearer ${token}`
+
             axios({
                 method: "post",
                 url: `http://localhost:5000/api/photo?clothId=${clothId}`,
                 headers: {
-                    "Content-Type": "multipart/form-data"
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": authorization
                 },
                 data: formData
             }).then( () => {

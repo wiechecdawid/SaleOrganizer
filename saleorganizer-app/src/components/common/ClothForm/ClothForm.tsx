@@ -1,10 +1,11 @@
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
 import { Redirect } from "react-router";
+import { getToken } from "../../../helpers/tokenHelpers";
 import Cloth from "../../../interfaces/cloth";
 
 interface Props {
-    onSuccess: () => void,
+    onSuccess: () => any,
     cloth?: Cloth
 }
 
@@ -33,16 +34,22 @@ export const ClothForm = ( { onSuccess, cloth }: Props ) => {
             detailedStorageInfo: detailed.value
         } as Cloth
 
+        const token = getToken()
+        const authorization = `Bearer ${token}`
+
         const serviceUrl = cloth === undefined ? 'http://localhost:5000/api/clothes' : `http://localhost:5000/api/clothes/${cloth?.id}`
 
         axios({
             method: cloth === undefined ? "post" : "put",
             url: serviceUrl,
-            data: body
+            data: body,
+            headers: {
+                "Authorization": authorization
+            }
         })
         .then( response => {
             if(response.status === 200) {
-                onSuccess()
+                onSuccess && onSuccess()
                 setPosted(true)
             }
         })

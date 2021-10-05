@@ -1,5 +1,8 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SaleOrganizer.Application.Interfaces;
 using SaleOrganizer.Domain;
 using SaleOrganizer.Persistence;
 using System;
@@ -32,14 +35,19 @@ namespace SaleOrganizer.Application.Clothes
         public class Handler : IRequestHandler<Command>
         {
             private DataContext _context;
+            private readonly IUserAccessor _accessor;
 
-            public Handler(DataContext context)
+            public Handler(DataContext context, IUserAccessor accessor)
             {
-                _context = context;
+                (_context, _accessor) = (context, accessor);
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken token)
             {
+                var user = await _context.Users.FirstOrDefaultAsync( x =>
+                    x.Email == _accessor.GetEmail()
+                );
+
                 var cloth = new Cloth
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -47,7 +55,8 @@ namespace SaleOrganizer.Application.Clothes
                     Description = request.Description,
                     StorageInfo = request.StorageInfo,
                     DetailedStorageInfo = request.DetailedStorageInfo,
-                    Status = request.Status
+                    Status = request.Status,
+                    User = user
                 };
 
                 _context.Clothes.Add(cloth);

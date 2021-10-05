@@ -10,6 +10,7 @@ import { SuccessButton } from '../common/buttons/SuccessButton';
 import { DeleteButton } from '../common/buttons/DeleteButton';
 import { CustomButton } from '../common/buttons/CustomButton';
 import { ClothForm } from '../common/ClothForm/ClothForm';
+import { getToken } from '../../helpers/tokenHelpers';
 
 const DetailsWrapper = styled.div`
 `
@@ -30,8 +31,15 @@ export const ClothDetails = () => {
         setAddPhotoPressed(!isAddPthoroPressed)
     }
 
-    useEffect( () => { 
-        const p = axios.get(`http://localhost:5000/api/clothes/${id}`)
+    useEffect( () => {
+        const token = getToken()
+        const config = {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }
+        
+        const p = axios.get(`http://localhost:5000/api/clothes/${id}`, config)
             .then( response => setCloth( () => {
                 return {
                     status: 'loaded',
@@ -56,9 +64,14 @@ export const ClothDetails = () => {
     }, [formEnabled])
 
     const deleteHandler = () => {
+        const token = getToken()
+        const authorization = `Bearer ${token}`
         axios({
             method: "delete",
-            url: `http://localhost:5000/api/clothes/${id}`
+            url: `http://localhost:5000/api/clothes/${id}`,
+            headers: {
+                "Authorization": authorization
+            }
         }).then( response => {
             if(response.status === 200)
                 setDeleted(true)
@@ -94,8 +107,8 @@ export const ClothDetails = () => {
                     <p>{ cloth.payload.storageInfo }</p>
                     <p>{ cloth.payload.detailedStorageInfo }</p>
                     <DeleteButton content="Usuń" onClick={deleteHandler} />
-                    <CustomButton content="Edytuj" onClick={formHandler} />
-                    {formEnabled && <ClothForm onSuccess={() => setForm(false)} cloth={cloth.payload} />}
+                    {/* <CustomButton content="Edytuj" onClick={formHandler} /> */}
+                    {formEnabled && <ClothForm onSuccess={formHandler} cloth={cloth.payload} />}
                 </>
             }
             { cloth.status === 'error' && 

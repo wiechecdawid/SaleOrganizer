@@ -28,6 +28,7 @@ export const getClothes: ActionCreator<ThunkAction<Promise<any>, ClothesState, n
                     authorization: `Bearer ${token}`
                 }
             }
+            
             const response = await axios.get('http://localhost:5000/api/clothes', config)
 
             if(response.status !== 200) {
