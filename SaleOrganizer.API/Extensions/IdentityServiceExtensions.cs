@@ -7,6 +7,7 @@ using SaleOrganizer.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace SaleOrganizer.API.Extensions
 {
@@ -31,7 +32,9 @@ namespace SaleOrganizer.API.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = key,
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
             services.AddScoped<TokenService>();

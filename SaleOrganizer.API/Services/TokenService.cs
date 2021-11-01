@@ -6,6 +6,7 @@ using SaleOrganizer.Domain;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography;
 
 namespace SaleOrganizer.API.Services
 {
@@ -28,7 +29,7 @@ namespace SaleOrganizer.API.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = credentials
             };
 
@@ -56,6 +57,15 @@ namespace SaleOrganizer.API.Services
             }
 
             return claims;
+        }
+
+        public RefreshToken GenerateRefreshToken()
+        {
+            var randomNum = new byte[32];
+
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNum);
+            return new RefreshToken{ Token = Convert.ToBase64String(randomNum) };
         }
     }
 }
