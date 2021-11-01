@@ -7,5 +7,6 @@ namespace SaleOrganizer.Domain
     {
         public List<string> Services { get; set; }
         public virtual List<Cloth> Clothes { get; set; }
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }
