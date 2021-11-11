@@ -94,6 +94,7 @@ namespace SaleOrganizer.API.Controllers
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
+                Path = "/",
                 Expires = DateTime.UtcNow.AddDays(7)
             };
 

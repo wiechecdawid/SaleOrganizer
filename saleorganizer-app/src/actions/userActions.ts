@@ -9,7 +9,8 @@ import { getToken } from "../helpers/tokenHelpers";
 export enum UserActionTypes {
     GET_USER = 'GET_USER',
     LOGIN = 'LOGIN',
-    REGISTER = 'REGISTER'
+    REGISTER = 'REGISTER',
+    REFRESH_TOKEN = 'REFRESH_TOKEN'
 }
 
 export interface GetUserAction {
@@ -26,6 +27,12 @@ export interface LoginAction {
 
 export interface RegisterAction {
     type: UserActionTypes.REGISTER,
+    payload: User | null,
+    error: any | null
+}
+
+export interface RefreshToken {
+    type: UserActionTypes.REFRESH_TOKEN,
     payload: User | null,
     error: any | null
 }
@@ -109,6 +116,38 @@ export const register: ActionCreator<ThunkAction<Promise<any>, UserState, null, 
             console.error(error);
             dispatch({
                 type: UserActionTypes.GET_USER,
+                payload: null,
+                error: error
+            })
+        }
+    }
+}
+
+export const refreshToken: ActionCreator<ThunkAction<Promise<any>, UserState, null, RegisterAction>> = (accessToken: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const token = getToken()
+
+            const config = {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }
+            const response = await axios.get('http://localhost:5000/api/account/refreshToken', config)
+
+            if(response.status !== 200) {
+                throw new Error(response.statusText)
+            }
+            
+            dispatch({
+                type: UserActionTypes.REFRESH_TOKEN,
+                payload: response.data as User,
+                error: null
+            })
+        } catch (error) {
+            console.error(error);
+            dispatch({
+                type: UserActionTypes.REFRESH_TOKEN,
                 payload: null,
                 error: error
             })
